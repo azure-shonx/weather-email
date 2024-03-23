@@ -8,7 +8,7 @@ public class Program
 
     public static void Main(string[] args)
     {
-        HostBuilder host = new HostBuilder()
+        var host = new HostBuilder()
         .ConfigureFunctionsWebApplication()
         .ConfigureServices(services =>
         {
