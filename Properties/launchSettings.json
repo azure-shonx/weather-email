@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "weather_email": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7073",
+      "launchBrowser": false
+    }
+  }
+}
