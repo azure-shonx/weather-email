@@ -8,20 +8,26 @@ namespace net.shonx.weather.email
     {
         private readonly ILogger _logger;
 
+        private readonly HttpHandler httpHandler;
+
         public TimerTrigger(ILoggerFactory loggerFactory)
         {
             _logger = loggerFactory.CreateLogger<TimerTrigger>();
+            httpHandler = new HttpHandler();
         }
 
         [Function("TimerTrigger")]
         public void Run([TimerTrigger("0 */30 * * * *")] TimerInfo myTimer)
         {
-            _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
-            
-            if (myTimer.ScheduleStatus is not null)
+            List<Email> emails = httpHandler.GetEmails();
+            foreach (Email email in emails)
             {
-                _logger.LogInformation($"Next timer schedule at: {myTimer.ScheduleStatus.Next}");
+                WeatherForecast forecast = httpHandler.GetWeather(email.zipcode);
+                Task task = httpHandler.SendAlert(email.email, forecast);
+                task.Wait();
             }
         }
+
+
     }
 }

@@ -4,10 +4,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 public class Program
 {
+    public const string WEATHER_BACKEND_PROVIDER = "https://backend.weather.shonx.net/";
 
     public static void Main(string[] args)
     {
-        var host = new HostBuilder()
+        HostBuilder host = new HostBuilder()
         .ConfigureFunctionsWebApplication()
         .ConfigureServices(services =>
         {
@@ -18,4 +19,5 @@ public class Program
 
         host.Run();
     }
+
 }
